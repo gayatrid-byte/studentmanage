@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
@@ -24,10 +25,12 @@ const uploads = require('./routes/uploads');
 require('./config/passport')(passport);
 
 // Connecting to MongoDB...
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/student-mgmt-sys', {
-    useNewUrlParser: true
-}).then(() => console.log('Connected to MongoDB Server...')).catch(err => console.error('Error occured connecting to MongoDB...', err));
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log('Connected to MongoDB Server...'))
+.catch(err => console.error('Error occured connecting to MongoDB...', err));
 
 
 
@@ -136,6 +139,6 @@ app.use('/uploads', uploads);
 
 // Listening on Port:5000
 //const port = process.env.port || 3000;
-const port = process.env.NODE_ENV || 5000;
+const port = process.env.PORT || 5000;
 app.set('port', port);
 app.listen(port, () => console.log(`Server started on port : ${port}`));
