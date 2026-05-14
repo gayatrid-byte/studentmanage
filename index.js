@@ -28,7 +28,7 @@ require('./config/passport')(passport);
 // Connecting to MongoDB...
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+   
 })
 .then(() => console.log('Connected to MongoDB Server...'))
 .catch(err => console.error('Error occured connecting to MongoDB...', err));
